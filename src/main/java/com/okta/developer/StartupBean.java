@@ -7,8 +7,8 @@ import javax.ejb.Startup;
 import javax.inject.Inject;
 import java.util.stream.Stream;
 
-@Singleton
-@Startup
+//@Singleton
+//@Startup
 public class StartupBean {
     private final BeerService beerService;
 

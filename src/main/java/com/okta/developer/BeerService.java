@@ -7,7 +7,7 @@ import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 import java.util.List;
 
-@Stateless
+//@Stateless
 public class BeerService {
 
     @PersistenceContext(unitName = "beer-pu")

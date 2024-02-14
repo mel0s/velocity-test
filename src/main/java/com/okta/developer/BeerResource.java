@@ -1,5 +1,8 @@
 package com.okta.developer;
 
+import com.okta.developer.entity.Employee;
+import com.okta.developer.services.EmployeeServices;
+
 import javax.ejb.Lock;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
@@ -12,15 +15,18 @@ import java.util.stream.Collectors;
 import static javax.ejb.LockType.READ;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Lock(READ)
-@Singleton
-@Path("/good-beers")
+//@Lock(READ)
+//@Singleton
+//@Path("/good-beers")
 public class BeerResource {
     private final BeerService beerService;
 
+    private final EmployeeServices employeeServices;
+
     @Inject
-    public BeerResource(BeerService beerService) {
+    public BeerResource(BeerService beerService, EmployeeServices employeeServices) {
         this.beerService = beerService;
+        this.employeeServices = employeeServices;
     }
 
     @GET
@@ -29,6 +35,13 @@ public class BeerResource {
         return beerService.getAllBeers().stream()
                 .filter(this::isGreat)
                 .collect(Collectors.toList());
+    }
+
+    @GET
+    @Path("/info")
+    @Produces({APPLICATION_JSON})
+    public List<Employee> getEmployees() {
+        return employeeServices.getAllEmployee();
     }
 
     private boolean isGreat(Beer beer) {
